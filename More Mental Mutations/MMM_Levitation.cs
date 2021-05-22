@@ -226,7 +226,10 @@ namespace XRL.World.Parts.Mutation
                             this.StartFlyingAnywhere(this.ParentObject, this.ParentObject, (IFlightSource)this);
                         }
                         else
-                            Popup.Show("You already are levitating", false);
+                        {
+                            if (this.ParentObject.IsPlayer())
+                                Popup.Show("You already are levitating", false);
+                        }
                     }
                 }
                 else

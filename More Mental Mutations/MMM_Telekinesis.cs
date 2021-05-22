@@ -634,23 +634,19 @@ namespace XRL.World.Parts.Mutation
                     }
                 }
 
-                if (objectsToPickUp.Count == 0)
-                {
-                    if (this.ParentObject.IsPlayer())
-                    {
-                        Popup.Show("There's nothing to take.", true);
-                    }
-                }
-                else if (objectsToPickUp.Count > 0)
-                {
-                    PickItem.ShowPicker(new List<XRL.World.GameObject>((IEnumerable<XRL.World.GameObject>)objectsToPickUp.Values), (string)null, PickItem.PickItemDialogStyle.GetItemDialog, this.ParentObject, (XRL.World.GameObject)null, (string)null);
-                }
+                bool requestInterfaceExit = false;
+                if (objectsToPickUp.Count == 0)                
+                    if (this.ParentObject.IsPlayer())                    
+                        Popup.Show("There's nothing to take.", true);                                    
+                else if (objectsToPickUp.Count > 0)                
+                    PickItem.ShowPicker(new List<XRL.World.GameObject>((IEnumerable<XRL.World.GameObject>)objectsToPickUp.Values), ref requestInterfaceExit, (string)null, PickItem.PickItemDialogStyle.GetItemDialog, this.ParentObject);
+                
                 this.ParentObject.UseEnergy(1000, "Mental");
                 return true;
             }
             if (E.ID == "CommandTelekinesisPickupThrownWeapon")
             {
-                Popup.Show("Yeah, you may pick up your weapon.", true);
+                Popup.Show("You may pick up your weapon.", true);
                 return true;
             }
             return base.FireEvent(E);
